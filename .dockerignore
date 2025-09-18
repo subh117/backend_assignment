@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+.git
+.gitignore
+# Do NOT exclude credit_approval_system/ or manage.py
+# Do NOT use patterns like *.* or exclude all files

@@ -19,11 +19,15 @@ services:
 
   web:
     build: .
-    command: sh -c "python manage.py migrate && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
+    command: sh -c "python ./manage.py migrate && gunicorn backend.wsgi:application --bind 0.0.0.0:8000"
     volumes:
       - .:/code
+    working_dir: /code/credit_approval_system
     ports:
       - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
     depends_on:
       - db
       - redis
@@ -33,6 +37,7 @@ services:
     command: celery -A backend worker -l info
     volumes:
       - .:/code
+    working_dir: /code/credit_approval_system
     depends_on:
       - db
       - redis
